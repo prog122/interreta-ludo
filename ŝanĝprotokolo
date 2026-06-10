@@ -1,6 +1,12 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.1.0]
+### Aldonita
+- Aldonita kodo de la frontend-servilo
+- Aldonita kodo de la websoketa-servilo
+- Aldonita kodo de la fizika-servilo
+
 ## [0.0.2]
 ### Ŝanĝita
 - Malgrandaj ŝanĝoj en la teksto de la licenco.

@@ -1,3 +1,6 @@
 Ĉi tiu deponejo estas provo krei retumilan retan ludon.
 
 Normoj en la dosiero "normoj"
+
+Por kompili, lanĉu "kompili.sh"
+Por startigi la servilojn, lanĉu "startigu-ĉiujn-servilojn.sh"
