@@ -17,9 +17,12 @@ function endormiĝiDumUnuKadro() {
   return dormi(1000/30);
 }
 
+const plejproksimaKaheloZ = -0.001;
+
 class mapTavolo {
+  // kradHelpilo = null;
   constructor(zomo, malpliigi) {
-    const komencaZ = -0.001;
+    const komencaZ = plejproksimaKaheloZ;
     const horizontalaNombro = mapLogiko.osmKahelojHorizontalaNombro(zomo);
     const vertikalaNombro = horizontalaNombro;
     const kaheloUrl = `https://tile.openstreetmap.org/${zomo}/%s/%s.png`;
@@ -41,6 +44,7 @@ class mapTavolo {
         promesoj.push(mapLogiko.ŝargiKahelon(kaheloUrl.replace('%s', i).replace('%s', j), function(kahelo) {
           // Metas en nulaj koordinatoj
           kahelo.position.set((i - (horizontalaNombro - 1) / 2) * coef, (-j + (vertikalaNombro - 1) / 2) * coef, komencaZ);
+	  kahelo.name = 'kahelo-' + zomo + '-' + i + '-' + j;
 
           if (!th.kaheloj[i][j]) {
             th.kaheloj[i][j] = kahelo;
@@ -50,6 +54,14 @@ class mapTavolo {
           mapLogiko.scenejo.add(kahelo);
         }, coef, coef));
       }
+    }
+
+    if (sencimodo) {
+      const kradHelpilo = new THREE.GridHelper(horizontalaNombro, vertikalaNombro);
+	    kradHelpilo.rotation.x = Math.PI / 2;
+
+      this.kradHelpilo = kradHelpilo;
+      mapLogiko.scenejo.add(kradHelpilo);
     }
 
     this.atendObj = Promise.all(promesoj);
@@ -70,6 +82,21 @@ class mapTavolo {
       kahelo.geometry = new THREE.PlaneGeometry(1 * coef, 1 * coef);
       kahelo.position.set((j - (th.horizontalaNombro - 1) / 2) * coef, (-k + (th.vertikalaNombro - 1) / 2) * coef, kahelo.position.z);
     });
+  }
+
+  detrui() {
+    this.ĉiuKahelo(function(j, k, kahelo) {
+      mapLogiko.scenejo.remove(kahelo);
+      kahelo.geometry.dispose();
+      kahelo.material.dispose();
+    });
+
+    if (sencimodo) {
+      mapLogiko.scenejo.remove(this.kradHelpilo);
+
+      this.kradHelpilo.geometry.dispose();
+      this.kradHelpilo.material.dispose();
+    }
   }
 }
 
@@ -96,13 +123,15 @@ const mapLogiko = {
       mapLogiko.scenejo.add(kahelo);
     }, 30, 30);
 
+    this.maybeAddDebugKvadrato(1);
+    this.maybeAddDebugKvadrato(2);
+
     await this.addKaheloj(this.osmZomo, false);
     this.vicentrigiLaKameron();
 
-    this.maybeAddDebugKvadrato(1);
     await this.addKaheloj(this.osmZomo + 1, true);
-    this.maybeAddDebugKvadrato(2);
-    await this.liniaInterpolado(mapLogiko, 1);
+    await this.liniaInterpolado(1);
+    this.tavoloj[this.osmZomo].detrui();
   },
   maybeAddDebugKvadrato: function(flankGrandeco) {
     if (!sencimodo) return;
@@ -157,7 +186,7 @@ const mapLogiko = {
     })
   },
 
-  liniaInterpolado: async function (mapLogiko2, celoZomo) {
+  liniaInterpolado: async function (celoZomo) {
     const horizontalaNombro = mapLogiko.osmKahelojHorizontalaNombro(celoZomo);
     const vertikalaNombro = horizontalaNombro;
 

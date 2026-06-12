@@ -25,8 +25,12 @@ const klakregistrilo = {
       const intersekcoj = th.radioĵetilo.intersectObjects(scenejo.children);
 
       if (intersekcoj.length > 0) {
-        const punkto = intersekcoj[0].point; // koordinatoj de intersekca punkto
-        console.log("Koordinatoj de klako:", punkto.x, punkto.y, punkto.z);
+	intersekcoj.forEach(intersekco => {
+	  if (intersekco.object.name.match(/kahelo/)) {
+            const punkto = intersekco.point; // koordinatoj de intersekca punkto
+            console.log("Koordinatoj de klako:", punkto.x, punkto.y, punkto.z, intersekcoj);
+	  }
+	});
       }
     }
 

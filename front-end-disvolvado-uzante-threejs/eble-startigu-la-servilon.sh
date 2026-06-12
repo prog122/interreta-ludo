@@ -1,3 +1,5 @@
+output=$(screen -ls | grep frontend)
+
 if [[ -n "$output" ]]; then
   echo "Frontend-servilo funkcias"
 else
