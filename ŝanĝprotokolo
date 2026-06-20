@@ -1,6 +1,13 @@
 # Ŝanĝprotokolo
 Ĉiuj publikaj ŝanĝoj estos dokumentitaj en ĉi tiu dosiero.
 
+## [0.3.0]
+### Aldonita
+- Aldonita frontendo en luma.gl
+- Aldonita bildigo de la Tero-mapo uzante JSON-matricon
+### Forigita
+- Frontendo en three.js estis movita al arkivo
+
 ## [0.2.1]
 ### Aldonita
 - Aldonita krado por tavoloj de la mapo en sencimiga reĝimo

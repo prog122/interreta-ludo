@@ -3,3 +3,5 @@ Versiado - "SemVer"
 Ŝanĝprotokolo - formato "Keep a Changelog", estas lokita en la dosiero "ŝanĝprotokolo"
 Dankemo - formato simila al "Keep a Changelog", estas lokita en la dosiero "dankemo"
 La README-teksto troveblas en la dosieroj "LEGUMIN" kaj "README" (la dosieroj estas identaj)
+
+Kodo generita de komputilo estas markita per @g en komentoj, kodo modifita de programisto estas markita per @a, @m en komentoj
